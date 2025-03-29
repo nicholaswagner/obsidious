@@ -1,0 +1,59 @@
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+img.avatar {
+  border-radius: 50%;
+}
+
+td > code,
+code:not(:has(.shiki) code) {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  font-weight: 800;
+  color: var(--palette-background-paper);
+  background-color: var(--palette-primary-main);
+  padding-inline-start: 0.5rem;
+  padding-inline-end: 0.5rem;
+  padding-block: 0.1rem;
+  border-radius: 3px;
+}
+
+pre {
+  word-wrap: break-word;
+}
+
+.obsidian-md-error {
+  border-radius: 0.5rem;
+  margin: 3rem;
+  text-align: center;
+  display: block;
+  padding: 1.5rem;
+  color: var(--palette-error-contrastText);
+  background-color: var(--palette-Alert-errorFilledBg);
+
+}
+
+span.obsidian-hilight {
+  font-weight: 800;
+  color: var(--palette-common-black);
+  padding-inline-start: 0.5rem;
+  padding-inline-end: 0.5rem;
+  padding-block: 0.25rem;
+  background-color: gold;
+}
+
+/* .obsidian-md-embed {
+  width: 100%;
+  background-color: var(--palette-background-paper);
+  padding: 2rem;
+} */
+
