@@ -1,10 +1,11 @@
+import { Box,styled, SxProps } from "@mui/material";
+import { useMemo } from "react";
 import { MarkdownHooks, Options } from "react-markdown";
 import remarkGfm from 'remark-gfm';
-import { remarkObsidious, ObsidiousVault, slugify } from 'remark-obsidious';
+import { ObsidiousVault, remarkObsidious, slugify } from 'remark-obsidious';
+
 import { MarkdownComponents } from "./MarkdownComponent/MarkdownComponents";
-import { useMemo } from "react";
 import { TableOfContents } from "./TableOfContents";
-import { styled, SxProps,Box } from "@mui/material";
 
 const StyledContainer = styled(Box)({
     display: 'flex',
@@ -25,11 +26,11 @@ const StyledMarkdown = styled('article')(() => ({
 type Props = {
     children: string | null | undefined;
     componentOverrides?: typeof MarkdownComponents;
-    hideToc?: boolean;
+    hideToC?: boolean;
     sx?: SxProps;
 }
 
-const MarkdownItem = ({children,componentOverrides, hideToc, sx}:Props) => {
+const MarkdownItem = ({children,componentOverrides, hideToC, sx}:Props) => {
     const className = 'md-items';
 
     const options:Options = useMemo(() => ({
@@ -46,11 +47,11 @@ const MarkdownItem = ({children,componentOverrides, hideToc, sx}:Props) => {
             ...componentOverrides
         },
         children,
-      }), [children]);
+      }), [children, componentOverrides]);
     
     const elements = MarkdownHooks(options);
     
-    const tableOfContents = useMemo(() => hideToc ? null : (<TableOfContents targetClassName={className} />), [elements, hideToc]);
+    const tableOfContents = useMemo(() => hideToC ? null : (<TableOfContents targetClassName={className} />), [hideToC]);
     
     return (
         <StyledContainer sx={sx}>

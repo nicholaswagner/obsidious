@@ -5,16 +5,17 @@
   "type": "module",
   "scripts": {
     "prebuild": "obsidious --in ./testVault --out src/assets",
-    "build:repo_name": "tsc -b && vite -m repo_name build && cp dist/index.html dist/404.html",
+    "build": "tsc -b && vite build && cp dist/index.html dist/404.html",
     "postbuild": "shx cp -R testVault/* dist",
-    "dev": "vite -m repo_name",
+    "dev": "vite",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "pretty": "prettier --check .",
-    "preview:repo_name": "vite -m repo_name preview"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "latest",
+    "shiki-codegen": "^2.3.2",
     "react-dom": "latest"
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "@typescript-eslint/parser": "^8.22.0",
     "@vitejs/plugin-react": "latest",
     "clsx": "^2.1.1",
+    "jiti": "^2.4.2",
     "dotenv": "^16.4.7",
     "eslint": "^9.19.0",
     "eslint-config-prettier": "^10.0.1",
@@ -61,7 +63,6 @@
     "remark-frontmatter": "^5.0.0",
     "remark-gfm": "^4.0.0",
     "remark-obsidious": "file:../remark-obsidious",
-    "shiki-codegen": "^2.3.2",
     "shx": "^0.4.0",
     "tsx": "^4.19.2",
     "typescript": "latest",

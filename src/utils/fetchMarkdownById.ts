@@ -1,4 +1,5 @@
 import { ObsidiousVault } from "remark-obsidious";
+
 import { parseFrontmatter } from "./parseFrontmatter";
 
 export const fetchMarkdownById = async (id: string) => {

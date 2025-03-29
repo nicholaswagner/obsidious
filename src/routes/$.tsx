@@ -1,18 +1,21 @@
 import { createFileRoute } from '@tanstack/react-router';
+
 import { ExtendedComponentProps } from '../components/MarkdownComponent/MarkdownComponents';
-import { fetchVaultItemForWebPath } from '../utils/fetchVaultItemforWebPath';
+import MarkdownItem from '../components/MarkdownItem';
 import { PreviewModal } from '../components/PreviewModal';
 import { usePreviewModal } from '../hooks/usePreviewModal';
-import MarkdownItem from '../components/MarkdownItem';
+import { fetchVaultItemForWebPath } from '../utils/fetchVaultItemforWebPath';
 
 function RouteComponent() {
-  const { text } = Route.useLoaderData();
+  const { text, matter } = Route.useLoaderData();
   const { preview, isVisible, handleMouseEnter, handleMouseClick } = usePreviewModal();
+  const options = {layout: 'default', hideToC: false, ...matter};
+  console.log('matter: ', matter);
 
 return (
 <>
 {isVisible && <PreviewModal {...preview} onClick={handleMouseClick} />}
-<MarkdownItem componentOverrides={{ a: (props: ExtendedComponentProps) => <a {...props} onMouseEnter={handleMouseEnter} />}} children={text} />
+<MarkdownItem hideToC={options.hideToC} componentOverrides={{ a: (props: ExtendedComponentProps) => <a {...props} onMouseEnter={handleMouseEnter} />}}>{text}</MarkdownItem>
 </>
 );
 };

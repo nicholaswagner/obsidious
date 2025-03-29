@@ -24,10 +24,10 @@ export const PreviewModal = ({ type, content, x, y, setIsVisible, hash, onClick 
   let result;
   switch (type) {
     case 'image':
-      result = (<MarkdownItem sx={{ width: '350px', height: '350px', pointerEvents: 'none'}} hideToc children={content}/>);
+      result = (<MarkdownItem sx={{ width: '350px', height: '350px', pointerEvents: 'none'}} hideToC>{content}</MarkdownItem>);
       break;
     case 'markdown':
-      result = (<MarkdownItem sx={{ width: '350px', height: '400px', pointerEvents: 'none', textAlign:'center'}} hideToc children={content}/>);
+      result = (<MarkdownItem sx={{ width: '350px', height: '400px', pointerEvents: 'none', textAlign:'center'}} hideToC>{content}</MarkdownItem>);
       break;
     case 'url':
       result = <iframe src={content} style={{ width: '350px', height: '400px' }} />;

@@ -1,13 +1,13 @@
 
-import { LinkIcon } from 'lucide-react';
 import { styled } from '@mui/material';
-import { useState } from 'react';
-// import Markdown from '../Markdown';
-import useEmbeddedMarkdown from '../../hooks/useEmbeddedMarkdown';
+import { LinkIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { ObsidiousVault, slugifyFilepath } from 'remark-obsidious';
+
+import useEmbeddedMarkdown from '../../hooks/useEmbeddedMarkdown';
+import MarkdownItem from '../MarkdownItem';
 import { ExtendedComponentProps } from './MarkdownComponents';
 import { MarkdownLink } from './MarkdownLink';
-import MarkdownItem from '../MarkdownItem';
 
 const StyledSpan = styled('span')(() => ({
   display: 'flex',
@@ -32,18 +32,22 @@ type Props = ExtendedComponentProps & {
 
 const EmbeddedMarkdown = (props:Props) => {
     const {fileid, hash} = props;
-    const [content, setContent] = useState('loading...');
+    const [content, setContent] = useState({text:'', matter:{}});
     
-    useEmbeddedMarkdown(fileid, hash).then((text) => {
-        if (!text) {
-            setContent(`
+    const result = useEmbeddedMarkdown(fileid, hash)
+
+    useEffect(() => {
+        if (result === null || result === undefined) {
+            setContent({text: `
                 Something went wrong while fetching embedded content.
                 file-id: ${fileid}
-                hash params: ${hash}`);
-            return
+                hash params: ${hash}`, matter:{}})
+            return;
         }
-        setContent(text)
-    });
+        else {
+            setContent(result);
+        }
+    }, [result, fileid, hash])
 
     const vaultItem = ObsidiousVault.getFileForId(fileid);
     if (!vaultItem) return null;
@@ -64,8 +68,8 @@ const EmbeddedMarkdown = (props:Props) => {
                   display: 'inline',
                 },
             }} 
-            hideToc 
-            children={content} />
+            hideToC 
+            >{content.text}</MarkdownItem>
 
         </StyledEmbeddedMarkdown>
     )

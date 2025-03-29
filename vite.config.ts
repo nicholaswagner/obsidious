@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       TanStackRouterVite({ autoCodeSplitting: false }),
-      viteReact({ include: /\.(ts[x]|md|json)$/ }),
+      viteReact({ include: /\.(ts|md|json)$/ }),
     ],
   }
 });

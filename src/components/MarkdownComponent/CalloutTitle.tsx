@@ -92,7 +92,6 @@ const CalloutIcon = (type: string) => {
     const chevron = <ChevronRightIcon  />;
 
     const handleClick = (event: React.MouseEvent<HTMLParagraphElement>) => {
-      // if (!callout) return;
       event.currentTarget?.dispatchEvent(new Event(`toggle-callout`, { bubbles: true }));
     }
 

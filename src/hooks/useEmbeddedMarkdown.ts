@@ -1,17 +1,26 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+
 import extractMarkdownHeaderContent from "../utils/extractMarkdownHeaderContent";
 import { fetchMarkdownById } from "../utils/fetchMarkdownById"
 
+export type EmbeddedMarkdownResult = { text: string, matter: Record<string, string> } | null;
 
-const useEmbeddedMarkdown = async (fileId: string, hashSlug: string) => {
-
+const useEmbeddedMarkdown = (fileId: string, hashSlug: string): EmbeddedMarkdownResult => {
     const memoizedData = useMemo(() => fetchMarkdownById(fileId), [fileId]);
 
-    const { text } = await memoizedData;
+    const [result, setResult] = useState<EmbeddedMarkdownResult>(null);
 
-    const result = hashSlug === '' ? text : extractMarkdownHeaderContent(text, hashSlug);
+    useEffect(() => {
+        const fetchData = async () => {
+            const { text: rawText, matter } = await memoizedData;
+            const processedResult = hashSlug === '' ? rawText : extractMarkdownHeaderContent(rawText, hashSlug);
+            setResult({ text: processedResult || '', matter: matter as Record<string, string> });
+        };
+
+        fetchData();
+    }, [memoizedData, hashSlug]);
 
     return result;
-}
+};
 
 export default useEmbeddedMarkdown;

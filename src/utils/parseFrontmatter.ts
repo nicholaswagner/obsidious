@@ -1,4 +1,4 @@
-type ParsedFrontmatter<T> = {
+export type ParsedFrontmatter<T> = {
     metadata: string;
 } & {
     [K in keyof T]?: string;

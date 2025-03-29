@@ -1,8 +1,9 @@
-import { ObsidiousVault, ObsidiousVaultItem, ObsidiousVaultImageFiletypes, slugify } from "remark-obsidious";
+import { ObsidiousVault, ObsidiousVaultImageFiletypes, ObsidiousVaultItem, slugify } from "remark-obsidious";
+
 import { parseFrontmatter } from "./parseFrontmatter";
 
-const SUPPORTED_FILETYPES = new Set(['md', ...ObsidiousVaultImageFiletypes]);
-
+const EMBEDDABLE_TYPES = new Set(['md', ...ObsidiousVaultImageFiletypes]);
+const CODEBLOCK_TYPES = new Set(['json', 'xml', 'log', 'yaml', 'yml']);
 interface Args {
     webPath: string;
 }
@@ -13,10 +14,21 @@ I need to add support for it... details below
 \`\`\`json
 ${JSON.stringify(vaultItem, null, 2)}
 \`\`\`
-
 `
 
-export const fetchVaultItemForWebPath = async ({ webPath }: Args) => {
+const renderAsCodeblock = (vaultItem: ObsidiousVaultItem, text: string) => `
+### ${vaultItem.label}
+\`\`\`${vaultItem.extension}
+${text}
+\`\`\`
+`;
+
+type FetchVaultItemForWebPathResult = {
+    text: string | null;
+    matter: Record<string, string>;
+}
+
+export const fetchVaultItemForWebPath = async ({ webPath }: Args): Promise<FetchVaultItemForWebPathResult> => {
     const vaultItem = ObsidiousVault.getFileForWebPathSlug(webPath);
 
     if (!vaultItem)
@@ -32,19 +44,33 @@ export const fetchVaultItemForWebPath = async ({ webPath }: Args) => {
     const prefix = `${import.meta.env.BASE_URL}${import.meta.env.VITE_FILEPATH_PREFIX}`;
     const src = `${prefix}${vaultItem?.filepath}`.replace(/\/\//g, "/");
 
+    if (CODEBLOCK_TYPES.has(vaultItem.extension)) {
+        return fetch(src)
+            .then((res) => res.text())
+            .then((text) => {
+                const matter = { layout: 'code', hideToC: 'true' }
+                return { text: renderAsCodeblock(vaultItem, text), matter };
+            })
+            .catch((err) => {
+                throw new Error(`Failed to fetch ${vaultItem.extension}`, err);
+            });
+    }
 
     if (vaultItem.extension === "md") {
         return fetch(src)
             .then((res) => res.text())
             .then((text) => {
-                const matter = parseFrontmatter(text);
+                const parsedMatter = parseFrontmatter(text);
+                const matter = Object.fromEntries(
+                    Object.entries(parsedMatter).filter(([_, value]) => value !== undefined)
+                ) as Record<string, string>;
                 return { text, matter };
             })
             .catch((err) => {
-                throw new Error(`Failed to fetch markdown designed in hash from cdn prefix`, err);
+                throw new Error(`Failed to fetch markdown`, err);
             });
     }
-    else if (SUPPORTED_FILETYPES.has(vaultItem.extension)) {
+    else if (EMBEDDABLE_TYPES.has(vaultItem.extension)) {
         const text = `
 ![[${slugify(vaultItem.label)}]]
 \`\`\`json
