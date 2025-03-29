@@ -1,6 +1,7 @@
 import { styled, SxProps, Theme, useTheme } from '@mui/material/styles';
+import { ComponentProps,useEffect, useRef, useState } from 'react';
 import type {ExtraProps} from 'react-markdown'
-import { useRef, useEffect, useState, ComponentProps } from 'react';
+
 import { DataAttributes, getDataAttributes } from '../../utils/getDataAttributes';
 
 const StyledBlockquote = styled('blockquote', { name: 'div' })(({ theme }) => ({
@@ -143,8 +144,8 @@ export const Blockquote = (props: ExtendedComponentProps) => {
   
 
   blockquote.addEventListener('toggle-callout', handleToggle);
-    () => blockquote.removeEventListener('toggle-callout', handleToggle);
- }, []);
+  return () => blockquote.removeEventListener('toggle-callout', handleToggle);
+ }, [isFoldable]);
 
 
 

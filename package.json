@@ -4,14 +4,12 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "prebuild": "npx obsidious --in ./testVault --out src/assets",
-    "build": "npx tsc -b && vite -m repo_name build && cp dist/index.html dist/404.html",
-    "postbuild": "npx shx cp -R testVault/* dist",
+    "build": "vite build && cp dist/index.html dist/404.html",
     "dev": "vite",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "pretty": "prettier --check .",
-    "preview": "vite -m repo_name preview"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "latest",

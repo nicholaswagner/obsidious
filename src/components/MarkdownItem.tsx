@@ -50,7 +50,6 @@ const MarkdownItem = ({children,componentOverrides, hideToC, sx}:Props) => {
       }), [children, componentOverrides]);
     
     const elements = MarkdownHooks(options);
-    
     const tableOfContents = useMemo(() => hideToC ? null : (<TableOfContents targetClassName={className} />), [hideToC]);
     
     return (

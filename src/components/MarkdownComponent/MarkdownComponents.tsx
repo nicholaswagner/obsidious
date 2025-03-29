@@ -1,13 +1,14 @@
-import type {ExtraProps} from 'react-markdown'
+import { Divider, styled, Table, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import type {ComponentProps, ElementType} from 'react'
-import CodeBlock from './CodeBlock';
+import type {ExtraProps} from 'react-markdown'
 import {slugify} from 'remark-obsidious';
+
+import { DataAttributes } from '../../utils/getDataAttributes';
 import { Blockquote } from './Blockquote';
 import CalloutTitle from './CalloutTitle';
-import { DataAttributes } from '../../utils/getDataAttributes';
+import CodeBlock from './CodeBlock';
 import EmbeddedMarkdown from './EmbeddedMarkdown';
 import { MarkdownImage } from './MarkdownImage';
-import { Divider, styled, Table, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 
 
@@ -66,7 +67,7 @@ const StyledTable = styled(Table)(({ theme }) => ({
 export type MarkdownComponent = {
   [Key in Extract<ElementType, string>]?: ElementType<ComponentProps<Key> & ExtraProps>
 }
-export type ExtendedComponentProps = ComponentProps<any> & ExtraProps & { dataAttributes?: DataAttributes };
+export type ExtendedComponentProps = ComponentProps<ElementType> & ExtraProps & { dataAttributes?: DataAttributes };
 
 const getHeaderVariant = (variant:'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' , props: ExtendedComponentProps) => {
   const variantProps = {

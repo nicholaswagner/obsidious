@@ -14,7 +14,7 @@ declare module "eslint-plugin-react-hooks" {
         recommended: Linter.Config;
     };
 
-    declare const rules: {
+    declare const _rules: {
         "rules-of-hooks": Rule.RuleModule;
         "exhaustive-deps": Rule.RuleModule;
     };

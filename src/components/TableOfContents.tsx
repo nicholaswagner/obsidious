@@ -1,10 +1,10 @@
 import { List, ListItem, ListItemProps, ListProps, styled } from '@mui/material';
 import { useParams} from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { slugify } from 'remark-obsidious';
 
 import { SIDEBAR_WIDTH } from '../AppConstants';
 import useActiveHeading from '../hooks/useActiveHeading';
-import { slugify } from 'remark-obsidious';
 import { buildToC, TocData } from '../utils/buildToc';
 import { MarkdownLink } from './MarkdownComponent/MarkdownLink';
 
@@ -69,7 +69,7 @@ export const TableOfContents = ({targetClassName = 'md'}:Props) => {
   const data = buildToC(headings);
   const {activeId} = useActiveHeading();
 
-    const querySelectHeadings = () => {
+    const querySelectHeadings = useCallback(() => {
     const markdownContainer = document.querySelector(`.${targetClassName}`) as HTMLElement;
     if (!markdownContainer) return [];
     return (
@@ -85,7 +85,7 @@ export const TableOfContents = ({targetClassName = 'md'}:Props) => {
           text: node.textContent?.trim() ?? '',
         };
       }));
-};
+}, [targetClassName]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -93,7 +93,7 @@ export const TableOfContents = ({targetClassName = 'md'}:Props) => {
     }, 150); // Adjust timing based on rendering behavior
   
     return () => clearTimeout(timeout);
-  }, [params]);
+  }, [params, querySelectHeadings]);
 
 
   const TableOfContentsItems = ({ data }: { data: TocData[] }) => (

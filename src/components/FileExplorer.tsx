@@ -5,9 +5,9 @@ import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 import { useNavigate, useRouter } from '@tanstack/react-router';
 import { ChevronDown, ChevronRight, FileIcon } from 'lucide-react';
 import { useState } from 'react';
+import { ObsidiousVault, ObsidiousVaultImageFiletypes,slugify, slugifyFilepath } from 'remark-obsidious';
 
 import { SIDEBAR_WIDTH } from '../AppConstants';
-import { slugify, ObsidiousVault, slugifyFilepath, ObsidiousVaultImageFiletypes } from 'remark-obsidious';
 
 const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
   [`& .${treeItemClasses.content}`]: {

@@ -1,7 +1,7 @@
 import { Box, Dialog, DialogContent, IconButton, ImageList, ImageListItem, ImageListItemBar } from '@mui/material';
 import { createFileRoute, Outlet, useLocation, useNavigate } from '@tanstack/react-router';
 import { CircleXIcon } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {ObsidiousVault, ObsidiousVaultItem} from 'remark-obsidious';
 
 
@@ -32,7 +32,7 @@ const ImagesComponent = () => {
     }, 300);
   }, [location.hash]);
 
-  const handleClickImage = (image: ObsidiousVaultItem) => {
+  const handleClickImage = useCallback((image: ObsidiousVaultItem) => {
     setOpen(false);
     setImage(image);
 
@@ -43,7 +43,7 @@ const ImagesComponent = () => {
     } else {
       setOpen(true);
     }
-  };
+  }, [location.hash, navigate]);
 
   const DialogImage = ({ image }: { image: ObsidiousVaultItem }) => {
 
@@ -81,7 +81,7 @@ const ImagesComponent = () => {
       />
     </ImageListItem>
   )
-}),[images]);
+}),[handleClickImage, images, prefix]);
 
   return (
     <>

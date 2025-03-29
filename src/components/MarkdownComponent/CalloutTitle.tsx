@@ -1,6 +1,6 @@
 
 import { styled } from "@mui/material/styles";
-import { PencilIcon, GemIcon, InfoIcon, RocketIcon, SwordsIcon, CircleHelpIcon, CircleAlertIcon, FireExtinguisherIcon, BugIcon, ListIcon, StarIcon, BookIcon, WandSparklesIcon, CalendarIcon, HardHatIcon, QuoteIcon, ChevronRightIcon, ImageIcon } from "lucide-react";
+import { BookIcon, BugIcon, CalendarIcon, ChevronRightIcon, CircleAlertIcon, CircleHelpIcon, FireExtinguisherIcon, GemIcon, HardHatIcon, ImageIcon,InfoIcon, ListIcon, PencilIcon, QuoteIcon, RocketIcon, StarIcon, SwordsIcon, WandSparklesIcon } from "lucide-react";
 import { Children, ReactNode, } from "react";
 
 const CalloutIcon = (type: string) => {
@@ -84,7 +84,6 @@ const CalloutIcon = (type: string) => {
     const { 
       children, 
       ['data-callout']: callout, 
-      ['data-title']: title, 
       ..._ 
     } = props;
     const childElements = Children.toArray(children);

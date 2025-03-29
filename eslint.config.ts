@@ -11,7 +11,7 @@ import tseslint from "typescript-eslint";
 
 
 export default [
-  { files: ["**/*.{md,ts,tsx}"] },
+  { files: ["**/*.{ts,tsx}"] },
   // pluginJs.configs.recommended, // Enable if using JavaScript files
   ...tseslint.configs.recommended,
   ...pluginRouter.configs['flat/recommended'],
