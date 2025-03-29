@@ -4,14 +4,14 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "prebuild": "obsidious --in ./testVault --out src/assets",
-    "build": "tsc -b && vite build && cp dist/index.html dist/404.html",
-    "postbuild": "shx cp -R testVault/* dist",
+    "prebuild": "npx obsidious --in ./testVault --out src/assets",
+    "build": "npx tsc -b && vite -m repo_name build && cp dist/index.html dist/404.html",
+    "postbuild": "npx shx cp -R testVault/* dist",
     "dev": "vite",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "pretty": "prettier --check .",
-    "preview": "vite preview"
+    "preview": "vite -m repo_name preview"
   },
   "dependencies": {
     "react": "latest",
