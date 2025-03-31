@@ -1,30 +1,39 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router'
 
-import { ExtendedComponentProps } from '../components/MarkdownComponent/MarkdownComponents';
-import MarkdownItem from '../components/MarkdownItem';
-import { PreviewModal } from '../components/PreviewModal';
-import { usePreviewModal } from '../hooks/usePreviewModal';
-import { fetchVaultItemForWebPath } from '../utils/fetchVaultItemforWebPath';
+import { ExtendedComponentProps } from '../components/MarkdownComponent/MarkdownComponents'
+import MarkdownItem from '../components/MarkdownItem'
+import { PreviewModal } from '../components/PreviewModal'
+import { usePreviewModal } from '../hooks/usePreviewModal'
+import { fetchVaultItemForWebPath } from '../utils/fetchVaultItemforWebPath'
 
 function RouteComponent() {
-  const { text, matter } = Route.useLoaderData();
-  const { preview, isVisible, handleMouseEnter, handleMouseClick } = usePreviewModal();
-  const options = {layout: 'default', hideToC: false, ...matter};
-  console.log('matter: ', matter);
+    const { text, matter } = Route.useLoaderData()
+    const { preview, isVisible, handleMouseEnter, handleMouseClick } =
+        usePreviewModal()
+    const options = { layout: 'default', hideToC: false, ...matter }
 
-return (
-<>
-{isVisible && <PreviewModal {...preview} onClick={handleMouseClick} />}
-<MarkdownItem hideToC={options.hideToC} componentOverrides={{ a: (props: ExtendedComponentProps) => <a {...props} onMouseEnter={handleMouseEnter} />}}>{text}</MarkdownItem>
-</>
-);
-};
-
+    return (
+        <>
+            {isVisible && (
+                <PreviewModal {...preview} onClick={handleMouseClick} />
+            )}
+            <MarkdownItem
+                hideToC={options.hideToC}
+                componentOverrides={{
+                    a: (props: ExtendedComponentProps) => (
+                        <a {...props} onMouseEnter={handleMouseEnter} />
+                    ),
+                }}
+            >
+                {text}
+            </MarkdownItem>
+        </>
+    )
+}
 
 export const Route = createFileRoute('/$')({
-  loader: ({params}) => {
-    return fetchVaultItemForWebPath(
-    { webPath: `${params._splat}`})
-  },
-  component: RouteComponent,
-});
+    loader: ({ params }) => {
+        return fetchVaultItemForWebPath({ webPath: `${params._splat}` })
+    },
+    component: RouteComponent,
+})
