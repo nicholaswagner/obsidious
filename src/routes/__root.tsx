@@ -1,11 +1,5 @@
 import { Container, styled } from '@mui/material'
-import {
-    createRootRouteWithContext,
-    Outlet,
-    useLoaderData,
-} from '@tanstack/react-router'
-import { useState } from 'react'
-import { ObsidiousVault } from 'remark-obsidious'
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 
 import { useTheme } from '../AppThemeProvider'
 import FileExplorer from '../components/FileExplorer'
@@ -32,7 +26,11 @@ const RootRoute = () => {
     }
     return (
         <Container
-            sx={{ display: 'flex', flexDirection: 'row', gap: '0.5rem' }}
+            sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                gap: '0.5rem',
+            }}
         >
             <StyledNav>
                 <ThemeSwitch

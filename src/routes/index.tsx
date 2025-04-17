@@ -17,6 +17,10 @@ const RouteComponent = () => {
                 <PreviewModal {...preview} onClick={handleMouseClick} />
             )}
             <MarkdownItem
+                sx={{
+                    marginTop: '4rem',
+                    marginBottom: '20rem',
+                }}
                 hideToC={options.hideToC}
                 componentOverrides={{
                     a: (props: ExtendedComponentProps) => (
