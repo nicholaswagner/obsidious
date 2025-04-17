@@ -1,6 +1,7 @@
 import { styled } from '@mui/material'
 import { useRouterState } from '@tanstack/react-router'
 import { SquarePenIcon } from 'lucide-react'
+import { ObsidiousVault } from 'remark-obsidious'
 
 import { StyledMarkdownLink } from './MarkdownComponent/MarkdownLink'
 
@@ -33,49 +34,45 @@ const StyledEditCallout = styled('div', {
 }))
 
 export const VaultIitemFooter = () => {
-    //     const { location } = useRouterState()
-    //     const editFileUrlPrefix = `${import.meta.env.VITE_EDIT_FILE_URL_PREFIX}`
-    //     const pathname = location.pathname.replace(/\/\//g, '/') // example: /VITE_FILEPATH_PREFIX/path/to/file.md
-    //     const base = import.meta.env.VITE_BASE_URL.replace(/^\/|\/$/g, ''); // strip leading/trailing slashes
-    // const regex = new RegExp(`^\/?${base}\/?`, 'i');
-
-    // const pathname = location.pathname
-    //   .replace(regex, '/')   // remove VITE_BASE_URL
-    //   .replace(/\/+/g, '/'); // normalize slashes
-    //     const editUrl = `${editFileUrlPrefix}/${pathname}`
-
     const { location } = useRouterState()
-    const editFileUrlPrefix = `${import.meta.env.VITE_EDIT_FILE_URL_PREFIX}`
-    const base = import.meta.env.VITE_BASE_URL.replace(/^\/|\/$/g, '') // strip leading/trailing slashes
-    const regex = new RegExp(`^\/?${base}\/?`, 'i')
-    const pathname = location.pathname.replace(regex, '') // remove VITE_BASE_URL
-    // .replace(/\/+/g, '/') // normalize slashes
 
-    const editUrl = `${editFileUrlPrefix}/${pathname}`.replace(/\/\//g, '/')
+    const vaultPath = location.pathname.replace(
+        import.meta.env.VITE_BASE_URL,
+        ''
+    )
+    const vaultFile = ObsidiousVault.getFileForWebPathSlug(vaultPath)
 
-    console.log('edit url::', editUrl)
+    const editFileUrl =
+        `${import.meta.env.VITE_EDIT_FILE_URL_PREFIX}/${vaultFile?.filepath}`.replace(
+            /\/\//g,
+            '/'
+        )
+
+    console.log('edit url::', editFileUrl)
 
     return (
         <StyledFooter>
-            <StyledMarkdownLink
-                to={editUrl}
-                component="a"
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                    textDecoration: 'none',
-                    width: '100%',
-                }}
-            >
-                <StyledEditCallout>
-                    <SquarePenIcon
-                        style={{
-                            transform: 'scale(0.5)',
-                        }}
-                    />{' '}
-                    Edit this document
-                </StyledEditCallout>
-            </StyledMarkdownLink>
+            {vaultFile && (
+                <StyledMarkdownLink
+                    to={editFileUrl}
+                    component="a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                        textDecoration: 'none',
+                        width: '100%',
+                    }}
+                >
+                    <StyledEditCallout>
+                        <SquarePenIcon
+                            style={{
+                                transform: 'scale(0.5)',
+                            }}
+                        />{' '}
+                        Edit this document
+                    </StyledEditCallout>
+                </StyledMarkdownLink>
+            )}
         </StyledFooter>
     )
 }
