@@ -35,8 +35,8 @@ const StyledEditCallout = styled('div', {
 export const VaultIitemFooter = () => {
     const { location } = useRouterState()
     const prefix = `${import.meta.env.VITE_EDIT_FILE_URL_PREFIX}`
-    const path = location.pathname.replace(/^\//, '').replace(/\/$/, '')
-    const editUrl = `${prefix}/${path}`.replace(/\/\//g, '/')
+    const filepath = location.pathname.replace(/\/\//g, '/')
+    const editUrl = `${prefix}/${filepath}`
 
     return (
         <StyledFooter>
