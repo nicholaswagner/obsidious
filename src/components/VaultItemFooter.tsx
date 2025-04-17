@@ -33,15 +33,27 @@ const StyledEditCallout = styled('div', {
 }))
 
 export const VaultIitemFooter = () => {
+    //     const { location } = useRouterState()
+    //     const editFileUrlPrefix = `${import.meta.env.VITE_EDIT_FILE_URL_PREFIX}`
+    //     const pathname = location.pathname.replace(/\/\//g, '/') // example: /VITE_FILEPATH_PREFIX/path/to/file.md
+    //     const base = import.meta.env.VITE_BASE_URL.replace(/^\/|\/$/g, ''); // strip leading/trailing slashes
+    // const regex = new RegExp(`^\/?${base}\/?`, 'i');
+
+    // const pathname = location.pathname
+    //   .replace(regex, '/')   // remove VITE_BASE_URL
+    //   .replace(/\/+/g, '/'); // normalize slashes
+    //     const editUrl = `${editFileUrlPrefix}/${pathname}`
+
     const { location } = useRouterState()
     const editFileUrlPrefix = `${import.meta.env.VITE_EDIT_FILE_URL_PREFIX}`
     const base = import.meta.env.VITE_BASE_URL.replace(/^\/|\/$/g, '') // strip leading/trailing slashes
     const regex = new RegExp(`^\/?${base}\/?`, 'i')
-    const pathname = location.pathname
-        .replace(regex, '/') // remove VITE_BASE_URL
-        .replace(/\/+/g, '/') // normalize slashes
+    const pathname = location.pathname.replace(regex, '') // remove VITE_BASE_URL
+    // .replace(/\/+/g, '/') // normalize slashes
 
-    const editUrl = `${editFileUrlPrefix}/${pathname}`
+    const editUrl = `${editFileUrlPrefix}/${pathname}`.replace(/\/\//g, '/')
+
+    console.log('edit url::', editUrl)
 
     return (
         <StyledFooter>
