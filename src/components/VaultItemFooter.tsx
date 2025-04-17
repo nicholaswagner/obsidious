@@ -42,11 +42,11 @@ export const VaultIitemFooter = () => {
     )
     const vaultFile = ObsidiousVault.getFileForWebPathSlug(vaultPath)
 
-    const editFileUrl =
-        `${import.meta.env.VITE_EDIT_FILE_URL_PREFIX}/${vaultFile?.filepath}`.replace(
-            /\/\//g,
-            '/'
-        )
+    const editFileUrl = `${import.meta.env.VITE_EDIT_FILE_URL_PREFIX}/${vaultFile?.filepath}`
+    // .replace(
+    //     /\/\//g,
+    //     '/'
+    // )
 
     console.log('edit url::', editFileUrl)
 
