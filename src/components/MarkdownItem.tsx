@@ -78,7 +78,7 @@ const MarkdownItem = ({
     return (
         <StyledContainer sx={sx}>
             <StyledMarkdown>
-                {hideBread ? null : <Breadcrumbs />}
+                {/* {hideBread ? null : <Breadcrumbs />} */}
                 {elements}
                 {!hideToC && <VaultIitemFooter />}
             </StyledMarkdown>

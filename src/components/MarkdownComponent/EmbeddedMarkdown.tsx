@@ -77,6 +77,7 @@ const EmbeddedMarkdown = (props: Props) => {
                     },
                 }}
                 hideToC
+                hideBread
             >
                 {content.text}
             </MarkdownItem>

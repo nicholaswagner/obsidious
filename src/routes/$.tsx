@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import { createFileRoute } from '@tanstack/react-router'
 
+import { Breadcrumbs } from '../components/Breadcrumbs'
 import { ExtendedComponentProps } from '../components/MarkdownComponent/MarkdownComponents'
 import MarkdownItem from '../components/MarkdownItem'
 import { PreviewModal } from '../components/PreviewModal'
@@ -15,12 +16,12 @@ function RouteComponent() {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Breadcrumbs />
             {isVisible && (
                 <PreviewModal {...preview} onClick={handleMouseClick} />
             )}
             <MarkdownItem
                 sx={{
-                    marginTop: '4rem',
                     marginBottom: '20rem',
                 }}
                 hideToC={options.hideToC}

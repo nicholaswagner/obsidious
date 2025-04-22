@@ -9,6 +9,18 @@ const DisabledCrumb = styled(Link)(() => ({
     userSelect: 'none',
 }))
 
+const StyledBreadcrumbs = styled(MuiBreadcrumbs)(() => ({
+    // marginBottom: '2rem',
+    textTransform: 'capitalize',
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    ol: {
+        flexDirection: 'row !important',
+    },
+    marginTop: '4rem',
+}))
+
 export const Breadcrumbs = () => {
     const { pathname } = useLocation()
     const crumbs = pathname
@@ -41,12 +53,5 @@ export const Breadcrumbs = () => {
             }
         })
 
-    return (
-        <MuiBreadcrumbs
-            sx={{ marginBottom: '2rem', textTransform: 'capitalize' }}
-            separator="/"
-        >
-            {crumbs}
-        </MuiBreadcrumbs>
-    )
+    return <StyledBreadcrumbs separator="/">{crumbs}</StyledBreadcrumbs>
 }
