@@ -16,6 +16,8 @@ import { SIDEBAR_WIDTH } from '../AppConstants'
 
 const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
     [`& .${treeItemClasses.content}`]: {
+        borderRadius: 0,
+
         ['&.Mui-expanded']: {
             backgroundColor: 'transparent !important', //alpha(theme.palette.primary.main, 0.1),
         },
@@ -46,8 +48,8 @@ const CustomTreeItem = styled(TreeItem)(({ theme }) => ({
         color: theme.palette.primary.main,
     },
     [`& .${treeItemClasses.groupTransition}`]: {
-        marginLeft: 7,
-        borderLeft: `1px dashed ${alpha(theme.palette.primary.main, 1)}`,
+        marginLeft: '1.2rem',
+        borderLeft: `1px solid ${alpha(theme.palette.secondary.main, 1)}`,
         backgroundColor: 'none',
     },
 }))

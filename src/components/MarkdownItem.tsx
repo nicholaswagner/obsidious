@@ -4,6 +4,7 @@ import { MarkdownHooks, Options } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { ObsidiousVault, remarkObsidious, slugify } from 'remark-obsidious'
 
+import { Breadcrumbs } from './Breadcrumbs'
 import { MarkdownComponents } from './MarkdownComponent/MarkdownComponents'
 import { TableOfContents } from './TableOfContents'
 import { VaultIitemFooter } from './VaultItemFooter'
@@ -27,9 +28,16 @@ type Props = {
     componentOverrides?: typeof MarkdownComponents
     hideToC?: boolean
     sx?: SxProps
+    hideBread?: boolean
 }
 
-const MarkdownItem = ({ children, componentOverrides, hideToC, sx }: Props) => {
+const MarkdownItem = ({
+    children,
+    componentOverrides,
+    hideToC,
+    sx,
+    hideBread,
+}: Props) => {
     const className = 'md-items'
 
     const options: Options = useMemo(
@@ -70,6 +78,7 @@ const MarkdownItem = ({ children, componentOverrides, hideToC, sx }: Props) => {
     return (
         <StyledContainer sx={sx}>
             <StyledMarkdown>
+                {hideBread ? null : <Breadcrumbs />}
                 {elements}
                 {!hideToC && <VaultIitemFooter />}
             </StyledMarkdown>

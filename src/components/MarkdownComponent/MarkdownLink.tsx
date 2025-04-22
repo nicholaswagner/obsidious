@@ -17,21 +17,30 @@ MUILinkComponent.displayName = 'MUILinkComponent' // name is used when debugging
 const CreatedLinkComponent = createLink(MUILinkComponent)
 
 export const MarkdownLink: LinkComponent<typeof MUILinkComponent> = (props) => (
-    <CreatedLinkComponent preload={'intent'} {...props} />
+    <CreatedLinkComponent
+        preload={'intent'}
+        underline="hover"
+        color="inherit"
+        {...props}
+    />
 )
 
 export const StyledMarkdownLink = styled(MarkdownLink, {
     shouldForwardProp: (_prop) => true,
 })(({ theme }) => ({
-    // color: theme.palette.text.primary,
-    color: theme.palette.common.white,
-    backgroundColor: theme.palette.background.paper,
-    textDecoration: 'underline',
+    color: theme.palette.text.primary,
+    // color: theme.palette.common.white,
+    backgroundColor: 'transparent',
+
+    // backgroundColor: theme.palette.background.paper,
+    textDecoration: 'none',
     '&:hover': {
-        textDecoration: 'underline',
         color: theme.palette.primary.main,
+        backgroundColor: 'transparent',
+        textDecoration: 'underline',
     },
     '&:visited': {
+        backgroundColor: 'transparent',
         color: theme.palette.text.secondary,
     },
 }))

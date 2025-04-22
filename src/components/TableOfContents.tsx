@@ -8,7 +8,7 @@ import useActiveHeading from '../hooks/useActiveHeading'
 import { buildToC, TocData } from '../utils/buildToc'
 import { MarkdownLink } from './MarkdownComponent/MarkdownLink'
 
-const StyledToC = styled('nav')(() => ({
+const StyledToC = styled('nav')(({ theme }) => ({
     display: 'flex',
     alignItems: 'left',
     flexShrink: 2,
@@ -19,6 +19,10 @@ const StyledToC = styled('nav')(() => ({
     overflowY: 'scroll',
     padding: 0,
     flexDirection: 'column',
+
+    [theme.breakpoints.down('md')]: {
+        display: 'none',
+    },
 }))
 
 const StyledUL = styled(List)<ListProps>(() => ({

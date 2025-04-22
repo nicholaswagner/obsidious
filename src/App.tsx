@@ -3,7 +3,6 @@ import './App.css'
 import { CssBaseline } from '@mui/material'
 import { responsiveFontSizes, ThemeProvider } from '@mui/material/styles'
 
-// import vaultData from '../src/assets/obsidious-index.json'
 import { AppRouter } from './AppRouter'
 import { darkTheme, lightTheme } from './AppTheme'
 import { useTheme } from './AppThemeProvider'

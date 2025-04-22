@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import { createFileRoute } from '@tanstack/react-router'
 
 import { ExtendedComponentProps } from '../components/MarkdownComponent/MarkdownComponents'
@@ -13,7 +14,7 @@ function RouteComponent() {
     const options = { layout: 'default', hideToC: false, ...matter }
 
     return (
-        <>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             {isVisible && (
                 <PreviewModal {...preview} onClick={handleMouseClick} />
             )}
@@ -31,7 +32,7 @@ function RouteComponent() {
             >
                 {text}
             </MarkdownItem>
-        </>
+        </Box>
     )
 }
 

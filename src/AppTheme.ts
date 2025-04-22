@@ -15,16 +15,17 @@ export const baseTheme = createTheme({
     },
     typography: {
         fontFamily: ['Gentium Book Plus', 'serif'].join(','),
-        fontWeightLight: 400,
-        fontWeightRegular: 400,
-        fontWeightBold: 700,
+        fontWeightLight: 100,
+        fontWeightRegular: 300,
         fontWeightMedium: 400,
+        fontWeightBold: 700,
+        fontSize: 13,
     },
     components: {
         MuiTypography: {
             styleOverrides: {
                 root: {
-                    fontSize: '1rem',
+                    // fontSize: '1rem',
                 },
             },
         },
