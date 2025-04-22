@@ -2,7 +2,7 @@ import { Breadcrumbs as MuiBreadcrumbs, Link, styled } from '@mui/material'
 import { useLocation } from '@tanstack/react-router'
 import { ObsidiousVault, slugifyFilepath } from 'remark-obsidious'
 
-const DisabledCrumb = styled(Link)(({ theme }) => ({
+const DisabledCrumb = styled(Link)(() => ({
     cursor: 'default',
     textDecoration: 'none',
     color: 'inherit',
@@ -11,32 +11,35 @@ const DisabledCrumb = styled(Link)(({ theme }) => ({
 
 export const Breadcrumbs = () => {
     const { pathname } = useLocation()
-    const crumbs = pathname.split('/').map((slug) => {
-        if (slug === '') return
+    const crumbs = pathname
+        .replace(import.meta.env.VITE_BASE_URL, '')
+        .split('/')
+        .map((slug) => {
+            if (slug === '') return
 
-        const vaultItem = ObsidiousVault.getFileForLabelSlug(slug)
+            const vaultItem = ObsidiousVault.getFileForLabelSlug(slug)
 
-        if (vaultItem?.fileType === 'file') {
-            return (
-                <Link
-                    key={vaultItem.id}
-                    href={`/${slugifyFilepath(vaultItem.filepath, vaultItem.extension)}`}
-                    aria-label={vaultItem.label}
-                    underline="hover"
-                >
-                    {vaultItem.label}
-                </Link>
-            )
-        } else {
-            if (vaultItem)
+            if (vaultItem?.fileType === 'file') {
                 return (
-                    <DisabledCrumb key={vaultItem.id}>
+                    <Link
+                        key={vaultItem.id}
+                        href={`/${slugifyFilepath(vaultItem.filepath, vaultItem.extension)}`}
+                        aria-label={vaultItem.label}
+                        underline="hover"
+                    >
                         {vaultItem.label}
-                    </DisabledCrumb>
+                    </Link>
                 )
-            else return <DisabledCrumb key={slug}>slug</DisabledCrumb>
-        }
-    })
+            } else {
+                if (vaultItem)
+                    return (
+                        <DisabledCrumb key={vaultItem.id}>
+                            {vaultItem.label}
+                        </DisabledCrumb>
+                    )
+                else return <DisabledCrumb key={slug}>{slug}</DisabledCrumb>
+            }
+        })
 
     return (
         <MuiBreadcrumbs
