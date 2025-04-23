@@ -10,7 +10,6 @@ const DisabledCrumb = styled(Link)(() => ({
 }))
 
 const StyledBreadcrumbs = styled(MuiBreadcrumbs)(() => ({
-    // marginBottom: '2rem',
     textTransform: 'capitalize',
     display: 'flex',
     flexDirection: 'row',
@@ -32,10 +31,16 @@ export const Breadcrumbs = () => {
             const vaultItem = ObsidiousVault.getFileForLabelSlug(slug)
 
             if (vaultItem?.fileType === 'file') {
+                const prefix = `${import.meta.env.BASE_URL}`
+                const src =
+                    `${prefix}${slugifyFilepath(vaultItem.filepath, vaultItem.extension)}`.replace(
+                        /\/\//g,
+                        '/'
+                    )
                 return (
                     <Link
                         key={vaultItem.id}
-                        href={`/${slugifyFilepath(vaultItem.filepath, vaultItem.extension)}`}
+                        href={src}
                         aria-label={vaultItem.label}
                         underline="hover"
                     >
